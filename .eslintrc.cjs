@@ -5,6 +5,15 @@ module.exports = {
     es2020: true,
     node: true
   },
+  globals: {
+    describe: 'readonly',
+    it: 'readonly',
+    expect: 'readonly',
+    beforeEach: 'readonly',
+    afterEach: 'readonly',
+    vi: 'readonly',
+    test: 'readonly'
+  },
   extends: [
     'eslint:recommended',
     'plugin:react-hooks/recommended'
