@@ -32,7 +32,6 @@ jobs:
           results_format: sarif
           publish_results: true
 
-      - name: Upload SARIF results
-        uses: github/codeql-action/upload-sarif@5433d31f4169f8dc79b7f6235bdb1049cc9cdecf
-        with:
-          sarif_file: results.sarif
+      # The Scorecard service rejects workflows that reference a non-verified
+      # CodeQL upload action commit. The Scorecard run itself still publishes
+      # results without this extra SARIF upload step.
