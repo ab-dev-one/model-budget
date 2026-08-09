@@ -35,6 +35,8 @@ The repository is prepared for:
 - Production build verification
 - GitHub Pages deployment
 - Security analysis with CodeQL
+- OpenSSF Scorecard workflow checks
+- Security policy for responsible disclosure
 
 ## Project documentation
 

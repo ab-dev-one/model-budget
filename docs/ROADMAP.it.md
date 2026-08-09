@@ -1,23 +1,23 @@
 # Roadmap
 
-## v0.1 - Fondamenta
+## v0.1 - Fondamenta (completata)
 
 - Setup del progetto
 - React, Vite e TypeScript
 - Tailwind CSS
 - Modello dati di pricing
 - Motore di costo
-- Scenario builder
-- Confronto tra modelli
+- Base scenario builder
+- Base confronto tra modelli
 - Deploy su GitHub Pages
+- Hardening sicurezza workflow (CI, CodeQL, Scorecard)
 
-## v0.2 - Planner
+## v0.2 - Planner (in corso)
 
-- Budget planner
-- Simulazione di crescita
-- Proiezione mensile
+- Controlli interattivi del budget planner
+- Proiezione mensile e KPI di risparmio
 - Raccomandazioni
-- UI migliorata
+- UI migliorata e comportamento responsive
 
 ## v0.3 - Condivisione
 

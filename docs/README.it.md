@@ -35,6 +35,8 @@ La repository è pronta per:
 - Verifica della build di produzione
 - Deploy su GitHub Pages
 - Analisi di sicurezza con CodeQL
+- Workflow OpenSSF Scorecard
+- Policy di sicurezza per segnalazioni responsabili
 
 ## Documentazione del progetto
 
