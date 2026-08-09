@@ -12,6 +12,14 @@ ModelBudget is an open-source web app for estimating and comparing AI model cost
 - Suggest optimization opportunities
 - Share scenarios via URL without a backend
 
+## Current MVP screen
+
+The current UI already includes an interactive planning surface:
+
+- Scenario controls for input tokens, output tokens and monthly request volume
+- Side-by-side model comparison with per-request and monthly estimates
+- Instant KPI summary for focus model, cheapest model and potential savings
+
 ## Stack
 
 - React
@@ -51,6 +59,8 @@ The repository includes:
 
 - CI workflow for lint, tests and build on every push and pull request
 - GitHub Pages deployment workflow for public hosting
+- CodeQL security analysis
+- OpenSSF Scorecard workflow
 - Security policy and issue templates
 
 ## Roadmap

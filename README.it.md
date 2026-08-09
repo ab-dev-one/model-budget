@@ -12,6 +12,14 @@ ModelBudget è un'applicazione web open source per stimare e confrontare i costi
 - Suggerisce opportunità di ottimizzazione
 - Condivide scenari senza backend
 
+## Schermata MVP attuale
+
+L'interfaccia corrente include già una superficie interattiva:
+
+- Controlli scenario per token di input, token di output e volume mensile di richieste
+- Confronto tra modelli con costo per singola richiesta e costo mensile
+- KPI in tempo reale su modello selezionato, opzione più economica e risparmio potenziale
+
 ## Stack
 
 - React
@@ -51,6 +59,8 @@ La repository include:
 
 - workflow CI per lint, test e build su ogni push e pull request
 - workflow di deployment su GitHub Pages
+- analisi di sicurezza CodeQL
+- workflow OpenSSF Scorecard
 - policy di sicurezza e issue templates
 
 ## Contribuire
