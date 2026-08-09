@@ -9,3 +9,9 @@ The project is currently in early development. Security updates are applied on t
 Please report vulnerabilities privately by opening a GitHub Security Advisory or contacting the maintainer directly.
 
 Do not disclose security issues publicly until a fix is available.
+
+## Security Practices
+
+- GitHub Actions use least-privilege permissions.
+- External actions are pinned to commit SHAs.
+- Dependency updates are reviewed through pull requests.
