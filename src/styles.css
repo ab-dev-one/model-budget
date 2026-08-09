@@ -72,6 +72,37 @@ body {
   font-family: 'IBM Plex Mono', monospace;
 }
 
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.language-switch {
+  display: inline-flex;
+  border: 1px solid rgba(12, 82, 96, 0.2);
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.lang-button {
+  border: 0;
+  padding: 0.3rem 0.55rem;
+  background: transparent;
+  color: #4e493f;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.lang-button.active {
+  background: #0f6f7f;
+  color: #f8fafc;
+}
+
 h1 {
   margin: 0.55rem 0 0.85rem;
   font-size: clamp(2rem, 4vw, 3.3rem);
@@ -112,6 +143,35 @@ h1 {
   padding: 0.65rem 0.75rem;
   font: inherit;
   color: #222018;
+}
+
+.actions-row {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.action-button {
+  border: 1px solid rgba(12, 82, 96, 0.22);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  background: rgba(255, 255, 255, 0.72);
+  color: #323025;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background: rgba(231, 248, 251, 0.8);
+}
+
+.scenario-message {
+  margin: 0.65rem 0 0;
+  color: #145a43;
+  font-size: 0.84rem;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 .kpi-row {
