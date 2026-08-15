@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "eslint . --ext ts,tsx --max-warnings=0",
+    "lint": "eslint . --max-warnings=0",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -17,24 +17,26 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.6.3",
+    "@eslint/eslintrc": "^3.3.6",
+    "@eslint/js": "^9.39.5",
+    "@testing-library/jest-dom": "^7.0.0",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@typescript-eslint/eslint-plugin": "^8.12.0",
     "@typescript-eslint/parser": "^8.12.0",
-    "@vitejs/plugin-react": "^4.7.0",
+    "@vitejs/plugin-react": "^6.0.5",
     "autoprefixer": "^10.5.4",
-    "eslint": "^8.57.0",
+    "eslint": "^10.8.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.4.0",
     "jsdom": "^25.0.1",
-    "postcss": "^8.5.20",
+    "postcss": "^8.5.26",
     "prettier": "^3.9.5",
     "tailwindcss": "^3.4.14",
     "typescript": "^5.6.3",
-    "vite": "^6.4.3",
+    "vite": "^8.2.1",
     "vitest": "^3.2.7",
     "zod": "^4.4.3"
   }
