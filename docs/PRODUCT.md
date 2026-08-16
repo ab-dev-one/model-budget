@@ -29,10 +29,11 @@ Provide a free, open-source and privacy-friendly planning tool for evaluating AI
 ## Goals
 
 - Estimate AI costs
-- Compare models
+- Compare up to four models in one scenario
 - Simulate growth
-- Suggest optimizations
-- Share scenarios
+- Surface the lowest selected cost and monthly difference
+- Save named browser-local snapshots
+- Make pricing freshness and limits visible
 
 ## Non-goals
 
@@ -57,3 +58,5 @@ Provide a free, open-source and privacy-friendly planning tool for evaluating AI
 - Business logic separated from UI
 - No backend dependency
 - Privacy by design
+- Validate browser-local data before it is loaded
+- Treat provider pricing as a dated planning snapshot, not a live quote

@@ -7,18 +7,21 @@ ModelBudget is an open-source web app for estimating and comparing AI model cost
 ## What it does
 
 - Estimate cost for prompts and output usage
-- Compare multiple models side by side
-- Simulate budget growth over time
-- Suggest optimization opportunities
-- Share scenarios via URL without a backend
+- Compare up to four models side by side
+- Simulate six-month budget growth for every selected model
+- Save up to twelve named scenarios locally in the browser
+- See a cost recommendation from the selected comparison set
+- Keep all scenario data on the current device
 
 ## Current MVP screen
 
-The current UI already includes an interactive planning surface:
+The current UI includes an interactive planning workspace:
 
 - Scenario controls for input tokens, output tokens and monthly request volume
-- Side-by-side model comparison with per-request and monthly estimates
-- Instant KPI summary for focus model, cheapest model and potential savings
+- Nine current models across OpenAI, Anthropic, Google and Mistral AI
+- Comparison selection, multi-series growth chart and a primary-model cost summary
+- Named local snapshots with loading and deletion controls
+- A visible list-price snapshot date and pricing caveat for sound purchasing decisions
 
 ## Stack
 
@@ -41,9 +44,16 @@ The current UI already includes an interactive planning surface:
 ## Development
 
 ```bash
+nvm use
 npm install
 npm run dev
 ```
+
+The project supports Node `^20.19.0 || ^22.13.0`. `.nvmrc` selects Node 22, avoiding warnings from the non-LTS Node 23 release.
+
+## Pricing data
+
+Model prices are static list-price estimates, not live quotes. They are suitable for early planning only; provider price changes, caching, regional rates, batch processing and optional features can materially change a production bill. Check the relevant provider documentation before making a purchasing decision.
 
 ## Quality gates
 

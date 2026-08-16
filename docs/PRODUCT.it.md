@@ -29,10 +29,11 @@ Offrire uno strumento gratuito, open source e rispettoso della privacy per valut
 ## Obiettivi
 
 - Stimare costi AI
-- Confrontare modelli
+- Confrontare fino a quattro modelli nello stesso scenario
 - Simulare crescita
-- Suggerire ottimizzazioni
-- Condividere scenari
+- Evidenziare il costo selezionato minimo e la differenza mensile
+- Salvare snapshot nominati locali al browser
+- Rendere visibili freschezza e limiti dei prezzi
 
 ## Non obiettivi
 
@@ -57,3 +58,5 @@ Offrire uno strumento gratuito, open source e rispettoso della privacy per valut
 - Logica di business separata dall'interfaccia
 - Nessuna dipendenza da backend
 - Privacy by design
+- Validare i dati locali del browser prima del caricamento
+- Trattare i prezzi provider come snapshot datati per la pianificazione, non come quotazioni live
