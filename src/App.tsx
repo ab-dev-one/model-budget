@@ -14,7 +14,7 @@ const DEFAULTS = {
   outputTokens: 80_000,
   monthlyRequests: 1_500,
   growthRatePercent: 12,
-  selectedModelIds: ['gpt-4-1-mini', 'claude-sonnet-4', 'gemini-2-5-flash']
+  selectedModelIds: ['gpt-5-mini', 'claude-sonnet-4-5', 'gemini-3-flash']
 };
 
 const snapshotSchema = z.object({
@@ -29,7 +29,7 @@ type Snapshot = z.infer<typeof snapshotSchema>;
 
 const COPY = {
   en: {
-    eyebrow: 'Private workspace - runs in your browser',
+    eyebrow: 'AI cost planning, made simple',
     title: 'Plan AI spend before it becomes a surprise.',
     lead: 'Set your token mix and traffic. Compare the models that matter to your product in a single decision surface.',
     usage: 'Usage assumptions',
@@ -47,7 +47,7 @@ const COPY = {
     lowest: (name: string) => `${name} is currently the lowest-cost selected option.`, switchLanguage: 'Switch language'
   },
   it: {
-    eyebrow: 'Workspace privato - funziona nel browser',
+    eyebrow: 'Pianificazione dei costi AI, resa semplice',
     title: 'Pianifica la spesa AI prima che diventi una sorpresa.',
     lead: 'Imposta il mix di token e il traffico. Confronta in un unico spazio i modelli che contano per il tuo prodotto.',
     usage: 'Ipotesi di utilizzo', compare: 'Confronta modelli',
