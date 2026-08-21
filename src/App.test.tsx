@@ -13,8 +13,8 @@ describe('App', () => {
     expect(screen.getByLabelText(/output tokens per request/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/monthly requests/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/monthly growth/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/gpt-4.1 mini/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/claude sonnet 4/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/gpt-5 mini/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/claude sonnet 4\.5/i).length).toBeGreaterThan(0);
     expect(screen.getByRole('img', { name: /cost trajectory for compared models/i })).toBeInTheDocument();
   });
 
