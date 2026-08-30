@@ -12,14 +12,14 @@
 - GitHub Pages deployment
 - Workflow security hardening (CI, CodeQL, Scorecard)
 
-## v0.2 - Planner (in progress)
+## v0.2 - Planner (completed)
 
 - Interactive budget planner controls
 - Monthly projection and savings KPIs
 - Recommendations
 - Improved UI and responsive behavior
 
-## v0.3 - Sharing
+## v0.3 - Sharing (completed)
 
 - Share URL
 - Import JSON

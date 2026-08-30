@@ -14,6 +14,8 @@ Il formato segue Keep a Changelog.
 - Workflow GitHub Actions per CI, Pages e analisi di sicurezza
 - Struttura documentale in inglese e italiano
 - Schermata MVP interattiva per pianificazione costi e confronto modelli in tempo reale
+- Workspace di confronto multi-modello (fino a quattro) con snapshot locali nominati
+- Condivisione scenari via URL, export in JSON o Markdown e import scenari da file JSON, tutto validato lato client
 
 ### Modificato
 

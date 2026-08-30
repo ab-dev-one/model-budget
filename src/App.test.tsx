@@ -42,4 +42,42 @@ describe('App', () => {
     expect(screen.getByRole('status')).toHaveTextContent(/snapshot saved locally/i);
     expect(screen.getByText('Launch plan')).toBeInTheDocument();
   });
+
+  it('reveals a share link with the current scenario encoded', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole('button', { name: /copy share link/i }));
+
+    expect(await screen.findByLabelText(/copy share link/i)).toHaveDisplayValue(/[?&]s=/);
+  });
+
+  it('imports a valid scenario JSON file', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const scenario = {
+      inputTokens: 500_000,
+      outputTokens: 120_000,
+      monthlyRequests: 3_000,
+      growthRatePercent: 20,
+      selectedModelIds: ['gpt-5', 'grok-4']
+    };
+    const file = new File([JSON.stringify(scenario)], 'scenario.json', { type: 'application/json' });
+
+    await user.upload(screen.getByLabelText(/import json/i), file);
+
+    expect(await screen.findByRole('status')).toHaveTextContent(/scenario imported/i);
+    expect(screen.getByLabelText(/input tokens per request/i)).toHaveValue(500000);
+  });
+
+  it('rejects an invalid scenario JSON file', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const file = new File([JSON.stringify({ foo: 'bar' })], 'invalid.json', { type: 'application/json' });
+    await user.upload(screen.getByLabelText(/import json/i), file);
+
+    expect(await screen.findByRole('status')).toHaveTextContent(/not a valid modelbudget scenario/i);
+  });
 });

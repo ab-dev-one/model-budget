@@ -3,27 +3,34 @@ import { z } from 'zod';
 import { MODELS, PRICING_SNAPSHOT_DATE } from './data/models';
 import { estimateMonthlyCost, estimateRequestCost, formatUsd } from './features/costs';
 import { buildGrowthProjection } from './features/projections';
+import { downloadTextFile } from './features/download';
+import { buildScenarioMarkdown } from './features/report';
+import { MAX_COMPARISON_MODELS, sanitizeModelIds, scenarioStateSchema, type ScenarioState } from './features/scenario';
+import { buildShareUrl, readScenarioStateFromLocation } from './features/share';
 
 type Locale = 'en' | 'it';
 
-const MAX_MODELS = 4;
+const MAX_MODELS = MAX_COMPARISON_MODELS;
 const STORAGE_KEY = 'modelbudget:snapshots:v2';
 const COLORS = ['#087f72', '#d8572a', '#2764ad', '#9b3e72'];
-const DEFAULTS = {
+const DEFAULTS: ScenarioState = {
   inputTokens: 250_000,
   outputTokens: 80_000,
   monthlyRequests: 1_500,
   growthRatePercent: 12,
   selectedModelIds: ['gpt-5-mini', 'claude-sonnet-4-5', 'gemini-3-flash']
 };
+const KNOWN_MODEL_IDS = MODELS.map((model) => model.id);
 
-const snapshotSchema = z.object({
-  name: z.string().trim().min(1).max(48),
-  inputTokens: z.number().finite().min(0).max(100_000_000),
-  outputTokens: z.number().finite().min(0).max(100_000_000),
-  monthlyRequests: z.number().finite().min(1).max(100_000_000),
-  growthRatePercent: z.number().finite().min(0).max(300),
-  selectedModelIds: z.array(z.string()).min(1).max(MAX_MODELS)
+function resolveInitialState(): ScenarioState {
+  const shared = readScenarioStateFromLocation();
+  if (!shared) return DEFAULTS;
+  const validIds = sanitizeModelIds(shared.selectedModelIds, KNOWN_MODEL_IDS);
+  return validIds.length ? { ...shared, selectedModelIds: validIds } : DEFAULTS;
+}
+
+const snapshotSchema = scenarioStateSchema.extend({
+  name: z.string().trim().min(1).max(48)
 });
 type Snapshot = z.infer<typeof snapshotSchema>;
 
@@ -44,7 +51,12 @@ const COPY = {
     pricing: `List-price snapshot from ${PRICING_SNAPSHOT_DATE}. Verify provider pricing, regional rates, cache discounts and batch pricing before purchase decisions.`,
     saved: 'Snapshot saved locally.', loaded: 'Snapshot loaded.', removed: 'Snapshot removed.',
     recommendation: (name: string, savings: string) => `${name} is the lowest-cost selected option, ${savings}/month below the primary model.`,
-    lowest: (name: string) => `${name} is currently the lowest-cost selected option.`, switchLanguage: 'Switch language'
+    lowest: (name: string) => `${name} is currently the lowest-cost selected option.`, switchLanguage: 'Switch language',
+    ioTitle: 'Share & export', ioNote: 'Everything stays client-side: no backend, no tracking.',
+    shareCopy: 'Copy share link', shareCopied: 'Share link copied to clipboard.', shareCopyFailed: 'Could not copy automatically - select and copy the link below.',
+    exportJson: 'Export JSON', exportMarkdown: 'Export Markdown', importJson: 'Import JSON',
+    importSuccess: 'Scenario imported.', importError: 'This file is not a valid ModelBudget scenario.',
+    sharedLoaded: 'Scenario loaded from a shared link.'
   },
   it: {
     eyebrow: 'Pianificazione dei costi AI, resa semplice',
@@ -61,7 +73,12 @@ const COPY = {
     pricing: `Snapshot dei prezzi di listino: ${PRICING_SNAPSHOT_DATE}. Verifica prezzi provider, tariffe regionali, sconti cache e batch prima di prendere decisioni di acquisto.`,
     saved: 'Snapshot salvato in locale.', loaded: 'Snapshot caricato.', removed: 'Snapshot eliminato.',
     recommendation: (name: string, savings: string) => `${name} e l'opzione selezionata meno costosa, con ${savings}/mese in meno del modello principale.`,
-    lowest: (name: string) => `${name} e l'opzione selezionata meno costosa in questo momento.`, switchLanguage: 'Cambia lingua'
+    lowest: (name: string) => `${name} e l'opzione selezionata meno costosa in questo momento.`, switchLanguage: 'Cambia lingua',
+    ioTitle: 'Condividi ed esporta', ioNote: 'Tutto resta lato client: nessun backend, nessun tracciamento.',
+    shareCopy: 'Copia link di condivisione', shareCopied: 'Link di condivisione copiato negli appunti.', shareCopyFailed: 'Copia automatica non riuscita: seleziona e copia il link qui sotto.',
+    exportJson: 'Esporta JSON', exportMarkdown: 'Esporta Markdown', importJson: 'Importa JSON',
+    importSuccess: 'Scenario importato.', importError: 'Questo file non e uno scenario ModelBudget valido.',
+    sharedLoaded: 'Scenario caricato da un link condiviso.'
   }
 } as const;
 
@@ -80,17 +97,28 @@ function toSafeNumber(value: string, minimum: number, maximum: number): number {
   return Number.isFinite(parsed) ? Math.min(Math.max(parsed, minimum), maximum) : minimum;
 }
 
+function readFileAsText(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result ?? ''));
+    reader.onerror = () => reject(reader.error ?? new Error('File read failed'));
+    reader.readAsText(file);
+  });
+}
+
 export default function App() {
+  const [initialState] = useState(resolveInitialState);
   const [locale, setLocale] = useState<Locale>('en');
-  const [inputTokens, setInputTokens] = useState(DEFAULTS.inputTokens);
-  const [outputTokens, setOutputTokens] = useState(DEFAULTS.outputTokens);
-  const [monthlyRequests, setMonthlyRequests] = useState(DEFAULTS.monthlyRequests);
-  const [growthRatePercent, setGrowthRatePercent] = useState(DEFAULTS.growthRatePercent);
-  const [selectedModelIds, setSelectedModelIds] = useState(DEFAULTS.selectedModelIds);
-  const [primaryModelId, setPrimaryModelId] = useState(DEFAULTS.selectedModelIds[0]);
+  const [inputTokens, setInputTokens] = useState(initialState.inputTokens);
+  const [outputTokens, setOutputTokens] = useState(initialState.outputTokens);
+  const [monthlyRequests, setMonthlyRequests] = useState(initialState.monthlyRequests);
+  const [growthRatePercent, setGrowthRatePercent] = useState(initialState.growthRatePercent);
+  const [selectedModelIds, setSelectedModelIds] = useState(initialState.selectedModelIds);
+  const [primaryModelId, setPrimaryModelId] = useState(initialState.selectedModelIds[0]);
   const [snapshotName, setSnapshotName] = useState('Q3 planning');
   const [snapshots, setSnapshots] = useState<Snapshot[]>(readSnapshots);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(() => (initialState === DEFAULTS ? '' : COPY.en.sharedLoaded));
+  const [shareUrl, setShareUrl] = useState('');
   const t = COPY[locale];
 
   const rows = useMemo(() => MODELS.map((model) => {
@@ -151,6 +179,54 @@ export default function App() {
     setSnapshots(next); setMessage(t.removed);
   };
 
+  const currentScenario: ScenarioState = { inputTokens, outputTokens, monthlyRequests, growthRatePercent, selectedModelIds };
+
+  const copyShareLink = async () => {
+    const url = buildShareUrl(currentScenario);
+    setShareUrl(url);
+    try {
+      await navigator.clipboard.writeText(url);
+      setMessage(t.shareCopied);
+    } catch {
+      setMessage(t.shareCopyFailed);
+    }
+  };
+
+  const exportJson = () => {
+    downloadTextFile('modelbudget-scenario.json', JSON.stringify(currentScenario, null, 2), 'application/json');
+  };
+
+  const exportMarkdown = () => {
+    const markdown = buildScenarioMarkdown({
+      scenarioName: snapshotName || 'ModelBudget scenario',
+      inputTokens,
+      outputTokens,
+      monthlyRequests,
+      growthRatePercent,
+      pricingSnapshotDate: PRICING_SNAPSHOT_DATE,
+      rows: comparisonRows
+    });
+    downloadTextFile('modelbudget-scenario.md', markdown, 'text/markdown');
+  };
+
+  const importJsonFile = async (file: File) => {
+    if (file.size > 200_000) return setMessage(t.importError);
+    try {
+      const parsed = scenarioStateSchema.safeParse(JSON.parse(await readFileAsText(file)));
+      const validIds = parsed.success ? sanitizeModelIds(parsed.data.selectedModelIds, KNOWN_MODEL_IDS) : [];
+      if (!parsed.success || !validIds.length) return setMessage(t.importError);
+      setInputTokens(parsed.data.inputTokens);
+      setOutputTokens(parsed.data.outputTokens);
+      setMonthlyRequests(parsed.data.monthlyRequests);
+      setGrowthRatePercent(parsed.data.growthRatePercent);
+      setSelectedModelIds(validIds);
+      setPrimaryModelId(validIds[0]);
+      setMessage(t.importSuccess);
+    } catch {
+      setMessage(t.importError);
+    }
+  };
+
   const chartPoints = (values: number[]) => values.map((value, index) => {
     const x = 42 + index * 103.6;
     const y = 14 + (1 - value / projectionMax) * 146;
@@ -169,7 +245,16 @@ export default function App() {
       </div><label className="primary-select"><span>{t.primary}</span><select value={primary?.id} onChange={(event) => setPrimaryModelId(event.target.value)}>{comparisonRows.map((row) => <option key={row.id} value={row.id}>{row.name}</option>)}</select></label>
       <div className="snapshot-box"><label><span>{t.snapshotName}</span><input value={snapshotName} maxLength={48} onChange={(event) => setSnapshotName(event.target.value)} /></label><button type="button" className="primary-action" onClick={saveSnapshot}>{t.save}</button><div className="snapshot-list" aria-label={t.snapshots}>{snapshots.length ? snapshots.map((snapshot) => <div key={snapshot.name}><span>{snapshot.name}</span><button type="button" onClick={() => loadSnapshot(snapshot)}>{t.load}</button><button type="button" onClick={() => removeSnapshot(snapshot.name)}>{t.remove}</button></div>) : <p>{t.none}</p>}</div></div>
       </section>
-      <section className="comparison-panel" aria-label={t.compare}><div className="section-heading"><p>{t.compare}</p><span>{selectedModelIds.length}/{MAX_MODELS}</span></div><div className="model-picker">{rows.map((row) => { const selected = selectedModelIds.includes(row.id); return <label key={row.id} className={selected ? 'model-option selected' : 'model-option'}><input type="checkbox" checked={selected} onChange={() => toggleModel(row.id)} /><span><strong>{row.name}</strong><small>{row.provider}</small></span><b>{formatUsd(row.monthly)}</b></label>; })}</div></section>
+      <section className="comparison-panel" aria-label={t.compare}><div className="section-heading"><p>{t.compare}</p><span>{selectedModelIds.length}/{MAX_MODELS}</span></div><div className="model-picker">{rows.map((row) => { const selected = selectedModelIds.includes(row.id); return <label key={row.id} className={selected ? 'model-option selected' : 'model-option'}><input type="checkbox" checked={selected} onChange={() => toggleModel(row.id)} /><span><strong>{row.name}</strong><small>{row.provider}</small></span><b>{formatUsd(row.monthly)}</b></label>; })}</div>
+        <div className="io-panel" aria-label={t.ioTitle}><div className="section-heading"><p>{t.ioTitle}</p><span>{t.ioNote}</span></div><div className="io-actions">
+          <button type="button" onClick={copyShareLink}>{t.shareCopy}</button>
+          <button type="button" onClick={exportJson}>{t.exportJson}</button>
+          <button type="button" onClick={exportMarkdown}>{t.exportMarkdown}</button>
+          <label className="file-input"><span>{t.importJson}</span><input type="file" accept="application/json" onChange={(event) => { const file = event.target.files?.[0]; if (file) void importJsonFile(file); event.target.value = ''; }} /></label>
+        </div>
+        {shareUrl ? <input className="share-link" readOnly value={shareUrl} aria-label={t.shareCopy} onFocus={(event) => event.target.select()} /> : null}
+        </div>
+      </section>
     </div>
     {message ? <p className="status-message" role="status" aria-live="polite">{message}</p> : null}
     <section className="kpi-row" aria-label="Budget summary"><article><span>{t.primarySpend}</span><strong>{formatUsd(primary?.monthly ?? 0)}</strong><small>{primary?.name}</small></article><article><span>{t.lowestSpend}</span><strong>{formatUsd(cheapest?.monthly ?? 0)}</strong><small>{cheapest?.name}</small></article><article><span>{t.difference}</span><strong>{formatUsd(savings)}</strong><small>{growthRatePercent}% monthly growth</small></article></section>

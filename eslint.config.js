@@ -27,7 +27,15 @@ export default [
         localStorage: 'readonly',
         setTimeout: 'readonly',
         clearTimeout: 'readonly',
-        window: 'readonly'
+        window: 'readonly',
+        navigator: 'readonly',
+        btoa: 'readonly',
+        atob: 'readonly',
+        URL: 'readonly',
+        URLSearchParams: 'readonly',
+        Blob: 'readonly',
+        File: 'readonly',
+        FileReader: 'readonly'
       }
     },
     plugins: {

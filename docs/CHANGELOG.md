@@ -14,6 +14,8 @@ The format is based on Keep a Changelog.
 - GitHub Actions workflows for CI, Pages and security scanning
 - Documentation structure in English and Italian
 - Interactive cost-planning MVP screen with scenario controls and live model comparison
+- Multi-model comparison workspace (up to four models) with named local snapshots
+- Share scenarios via URL, export as JSON or Markdown, and import scenarios from JSON files, all validated client-side
 
 ### Changed
 
