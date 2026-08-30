@@ -10,6 +10,8 @@ ModelBudget è un'applicazione web open source per stimare e confrontare i costi
 - Confronta fino a quattro modelli affiancati
 - Simula sei mesi di crescita del budget per ogni modello selezionato
 - Salva fino a dodici scenari nominati nel browser
+- Condividi uno scenario via URL, oppure esportalo in JSON o Markdown
+- Importa uno scenario JSON esportato in precedenza
 - Evidenzia una raccomandazione di costo nel confronto selezionato
 - Mantiene tutti i dati dello scenario sul dispositivo corrente
 

@@ -10,6 +10,8 @@ ModelBudget is an open-source web app for estimating and comparing AI model cost
 - Compare up to four models side by side
 - Simulate six-month budget growth for every selected model
 - Save up to twelve named scenarios locally in the browser
+- Share a scenario via URL, or export it as JSON or Markdown
+- Import a previously exported JSON scenario
 - See a cost recommendation from the selected comparison set
 - Keep all scenario data on the current device
 
