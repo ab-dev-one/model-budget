@@ -4,7 +4,6 @@
 
 - Setup del progetto
 - React, Vite e TypeScript
-- Tailwind CSS
 - Modello dati di pricing
 - Motore di costo
 - Base scenario builder

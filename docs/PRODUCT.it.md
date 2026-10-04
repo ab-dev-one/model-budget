@@ -47,7 +47,7 @@ Offrire uno strumento gratuito, open source e rispettoso della privacy per valut
 - React
 - TypeScript
 - Vite
-- Tailwind CSS
+- CSS
 - Vitest
 - GitHub Actions
 - GitHub Pages

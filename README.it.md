@@ -30,7 +30,7 @@ L'interfaccia corrente include un workspace di pianificazione interattivo:
 - React
 - TypeScript
 - Vite
-- Tailwind CSS
+- CSS
 - Vitest
 - GitHub Actions
 - GitHub Pages

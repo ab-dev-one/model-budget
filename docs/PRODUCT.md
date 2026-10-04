@@ -47,7 +47,7 @@ Provide a free, open-source and privacy-friendly planning tool for evaluating AI
 - React
 - TypeScript
 - Vite
-- Tailwind CSS
+- CSS
 - Vitest
 - GitHub Actions
 - GitHub Pages
