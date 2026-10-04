@@ -5,6 +5,18 @@ import App from './App';
 describe('App', () => {
   beforeEach(() => localStorage.clear());
 
+  it('drops saved snapshots that only reference retired models', () => {
+    const base = { inputTokens: 1000, outputTokens: 1000, monthlyRequests: 10, growthRatePercent: 5 };
+    localStorage.setItem('modelbudget:snapshots:v2', JSON.stringify([
+      { ...base, name: 'Old plan', selectedModelIds: ['gpt-4-1-mini'] },
+      { ...base, name: 'Mixed plan', selectedModelIds: ['gpt-4-1-mini', 'gpt-6-luna'] }
+    ]));
+    render(<App />);
+
+    expect(screen.queryByText('Old plan')).not.toBeInTheDocument();
+    expect(screen.getByText('Mixed plan')).toBeInTheDocument();
+  });
+
   it('renders usage controls and a multi-model cost comparison in English', () => {
     render(<App />);
 
@@ -13,8 +25,8 @@ describe('App', () => {
     expect(screen.getByLabelText(/output tokens per request/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/monthly requests/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/monthly growth/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/gpt-5 mini/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/claude sonnet 4\.5/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/gpt-6 luna/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/claude sonnet 5\.5/i).length).toBeGreaterThan(0);
     expect(screen.getByRole('img', { name: /cost trajectory for compared models/i })).toBeInTheDocument();
   });
 
@@ -61,7 +73,7 @@ describe('App', () => {
       outputTokens: 120_000,
       monthlyRequests: 3_000,
       growthRatePercent: 20,
-      selectedModelIds: ['gpt-5', 'grok-4']
+      selectedModelIds: ['gpt-6-astra', 'grok-4-7']
     };
     const file = new File([JSON.stringify(scenario)], 'scenario.json', { type: 'application/json' });
 

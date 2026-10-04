@@ -19,6 +19,8 @@ The format is based on Keep a Changelog.
 
 ### Changed
 
+- Model catalog and list prices refreshed to October 2026 from official provider pricing pages (19 models; Llama removed, no first-party API price)
+- Scorecard workflow pinned to scorecard-action v2.4.4, whose image is hosted on GitHub Container Registry (v2.4.0 pulled from gcr.io and failed)
 - Security workflows hardened and aligned with protected-branch checks
 - Scorecard workflow updated with valid action pinning and SARIF publication path
 

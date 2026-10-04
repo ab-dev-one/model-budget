@@ -19,6 +19,8 @@ Il formato segue Keep a Changelog.
 
 ### Modificato
 
+- Catalogo modelli e prezzi di listino aggiornati a ottobre 2026 dalle pagine ufficiali dei provider (19 modelli; Llama rimosso, nessun prezzo API di prima parte)
+- Workflow Scorecard aggiornato a scorecard-action v2.4.4, con immagine su GitHub Container Registry (la v2.4.0 la scaricava da gcr.io e falliva)
 - Workflow di sicurezza rafforzati e allineati ai check del branch protetto
 - Workflow Scorecard aggiornato con pin validi e percorso SARIF compatibile
 

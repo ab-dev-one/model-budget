@@ -18,7 +18,7 @@ const DEFAULTS: ScenarioState = {
   outputTokens: 80_000,
   monthlyRequests: 1_500,
   growthRatePercent: 12,
-  selectedModelIds: ['gpt-5-mini', 'claude-sonnet-4-5', 'gemini-3-flash']
+  selectedModelIds: ['gpt-6-luna', 'claude-sonnet-5-5', 'gemini-3-8-flash']
 };
 const KNOWN_MODEL_IDS = MODELS.map((model) => model.id);
 
@@ -86,7 +86,11 @@ function readSnapshots(): Snapshot[] {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]');
     const parsed = z.array(snapshotSchema).safeParse(saved);
-    return parsed.success ? parsed.data : [];
+    if (!parsed.success) return [];
+    // Snapshots saved before a catalog refresh may reference retired models.
+    return parsed.data
+      .map((snapshot) => ({ ...snapshot, selectedModelIds: sanitizeModelIds(snapshot.selectedModelIds, KNOWN_MODEL_IDS) }))
+      .filter((snapshot) => snapshot.selectedModelIds.length > 0);
   } catch {
     return [];
   }

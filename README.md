@@ -20,7 +20,7 @@ ModelBudget is an open-source web app for estimating and comparing AI model cost
 The current UI includes an interactive planning workspace:
 
 - Scenario controls for input tokens, output tokens and monthly request volume
-- Fourteen current models across OpenAI, Anthropic, Google, xAI, Mistral AI, DeepSeek and Meta
+- Nineteen current models across OpenAI, Anthropic, Google, xAI, Mistral AI and DeepSeek
 - Comparison selection, multi-series growth chart and a primary-model cost summary
 - Named local snapshots with loading and deletion controls
 - A visible list-price snapshot date and pricing caveat for sound purchasing decisions
