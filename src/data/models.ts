@@ -10,131 +10,177 @@ export type AiModel = {
 
 export const MODELS: AiModel[] = [
   {
-    id: 'gpt-5',
-    name: 'GPT-5',
+    id: 'gpt-6-astra',
+    name: 'GPT-6 Astra',
     provider: 'OpenAI',
-    inputPerMillion: 1.75,
-    outputPerMillion: 12,
-    contextWindow: '400k',
-    profile: 'Flagship reasoning, coding and agentic workloads'
+    inputPerMillion: 10,
+    outputPerMillion: 50,
+    contextWindow: '1.05M',
+    profile: 'Flagship model for the most demanding reasoning and coding'
   },
   {
-    id: 'gpt-5-mini',
-    name: 'GPT-5 mini',
+    id: 'gpt-6-1-sol',
+    name: 'GPT-6.1 Sol',
     provider: 'OpenAI',
-    inputPerMillion: 0.35,
-    outputPerMillion: 2.4,
-    contextWindow: '400k',
-    profile: 'Fast, cost-efficient model for high-volume product work'
+    inputPerMillion: 2,
+    outputPerMillion: 10,
+    contextWindow: '1.05M',
+    profile: 'Near-flagship quality for complex, agentic workflows at lower cost'
   },
   {
-    id: 'gpt-5-nano',
-    name: 'GPT-5 nano',
+    id: 'gpt-6-luna',
+    name: 'GPT-6 Luna',
     provider: 'OpenAI',
-    inputPerMillion: 0.08,
+    inputPerMillion: 0.1,
     outputPerMillion: 0.5,
-    contextWindow: '272k',
-    profile: 'Lightweight tasks, classification and high-throughput routing'
+    contextWindow: '1.05M',
+    profile: 'Efficient model for focused, high-volume tasks'
+  },
+  {
+    id: 'claude-fable-5-1',
+    name: 'Claude Fable 5.1',
+    provider: 'Anthropic',
+    inputPerMillion: 10,
+    outputPerMillion: 50,
+    contextWindow: '1M',
+    profile: 'Demanding reasoning and long-horizon agentic work'
+  },
+  {
+    id: 'claude-opus-5-5',
+    name: 'Claude Opus 5.5',
+    provider: 'Anthropic',
+    inputPerMillion: 4,
+    outputPerMillion: 20,
+    contextWindow: '1M',
+    profile: 'Long-running agentic coding and knowledge work'
+  },
+  {
+    id: 'claude-sonnet-5-5',
+    name: 'Claude Sonnet 5.5',
+    provider: 'Anthropic',
+    inputPerMillion: 2,
+    outputPerMillion: 10,
+    contextWindow: '1M',
+    profile: 'Best balance of speed and intelligence for production workloads'
+  },
+  {
+    id: 'claude-sonnet-4-6',
+    name: 'Claude Sonnet 4.6',
+    provider: 'Anthropic',
+    inputPerMillion: 3,
+    outputPerMillion: 15,
+    contextWindow: '1M',
+    profile: 'Previous-generation Sonnet for coding and analysis'
   },
   {
     id: 'claude-haiku-4-5',
     name: 'Claude Haiku 4.5',
     provider: 'Anthropic',
-    inputPerMillion: 0.9,
-    outputPerMillion: 4.5,
+    inputPerMillion: 1,
+    outputPerMillion: 5,
     contextWindow: '200k',
-    profile: 'Responsive assistant for customer-facing flows'
+    profile: 'Fastest model for responsive, customer-facing flows'
   },
   {
-    id: 'claude-sonnet-4-5',
-    name: 'Claude Sonnet 4.5',
-    provider: 'Anthropic',
-    inputPerMillion: 3,
-    outputPerMillion: 15,
+    id: 'gemini-3-8-flash',
+    name: 'Gemini 3.8 Flash',
+    provider: 'Google',
+    inputPerMillion: 0.75,
+    outputPerMillion: 3.75,
     contextWindow: '1M',
-    profile: 'Complex coding, analysis and agentic workflows'
+    profile: 'Fast agentic and software-engineering model (introductory price until 31 Dec 2026)'
   },
   {
-    id: 'claude-opus-4-5',
-    name: 'Claude Opus 4.5',
-    provider: 'Anthropic',
-    inputPerMillion: 12,
-    outputPerMillion: 60,
+    id: 'gemini-3-5-flash-lite',
+    name: 'Gemini 3.5 Flash-Lite',
+    provider: 'Google',
+    inputPerMillion: 0.3,
+    outputPerMillion: 2.5,
+    contextWindow: '1M',
+    profile: 'Low-cost multimodal model for high-volume agentic tasks'
+  },
+  {
+    id: 'gemini-3-1-pro',
+    name: 'Gemini 3.1 Pro (preview)',
+    provider: 'Google',
+    inputPerMillion: 2,
+    outputPerMillion: 12,
+    contextWindow: '1M',
+    profile: 'Advanced multimodal reasoning and agentic tool use (prompts up to 200k tokens)'
+  },
+  {
+    id: 'gemini-2-5-flash',
+    name: 'Gemini 2.5 Flash',
+    provider: 'Google',
+    inputPerMillion: 0.3,
+    outputPerMillion: 2.5,
+    contextWindow: '1M',
+    profile: 'Stable hybrid-reasoning model for everyday workloads'
+  },
+  {
+    id: 'grok-4-7',
+    name: 'Grok 4.7',
+    provider: 'xAI',
+    inputPerMillion: 2,
+    outputPerMillion: 6,
     contextWindow: '500k',
-    profile: 'Highest-stakes reasoning and long-running tasks'
+    profile: 'xAI most capable model for code and chat (prompts under 200k tokens)'
   },
   {
-    id: 'gemini-3-flash',
-    name: 'Gemini 3 Flash',
-    provider: 'Google',
-    inputPerMillion: 0.2,
-    outputPerMillion: 1.4,
+    id: 'grok-4-3',
+    name: 'Grok 4.3',
+    provider: 'xAI',
+    inputPerMillion: 1.25,
+    outputPerMillion: 2.5,
     contextWindow: '1M',
-    profile: 'Fast multimodal and high-throughput workloads'
+    profile: 'Cost-efficient long-context reasoning (prompts under 200k tokens)'
   },
   {
-    id: 'gemini-3-pro',
-    name: 'Gemini 3 Pro',
-    provider: 'Google',
+    id: 'mistral-medium-3-5',
+    name: 'Mistral Medium 3.5',
+    provider: 'Mistral AI',
     inputPerMillion: 1.5,
-    outputPerMillion: 11,
-    contextWindow: '2M',
-    profile: 'Advanced reasoning and large-context work'
-  },
-  {
-    id: 'grok-4-fast',
-    name: 'Grok 4 Fast',
-    provider: 'xAI',
-    inputPerMillion: 0.2,
-    outputPerMillion: 0.5,
-    contextWindow: '2M',
-    profile: 'Low-latency assistant and search-augmented workloads'
-  },
-  {
-    id: 'grok-4',
-    name: 'Grok 4',
-    provider: 'xAI',
-    inputPerMillion: 3,
-    outputPerMillion: 15,
+    outputPerMillion: 7.5,
     contextWindow: '256k',
-    profile: 'Advanced reasoning with real-time data access'
+    profile: 'Open-weight multimodal model for agentic and coding workloads'
   },
   {
-    id: 'mistral-medium-3-1',
-    name: 'Mistral Medium 3.1',
+    id: 'mistral-large-3',
+    name: 'Mistral Large 3',
     provider: 'Mistral AI',
-    inputPerMillion: 0.4,
-    outputPerMillion: 2,
+    inputPerMillion: 0.5,
+    outputPerMillion: 1.5,
     contextWindow: '256k',
-    profile: 'Balanced European stack and compliance-oriented workloads'
+    profile: 'Open-weight general-purpose multimodal mixture-of-experts model'
   },
   {
-    id: 'mistral-small-3-2',
-    name: 'Mistral Small 3.2',
+    id: 'mistral-small-4',
+    name: 'Mistral Small 4',
     provider: 'Mistral AI',
-    inputPerMillion: 0.1,
-    outputPerMillion: 0.3,
-    contextWindow: '128k',
-    profile: 'Cost-sensitive multilingual and vision workloads'
-  },
-  {
-    id: 'deepseek-v3-2',
-    name: 'DeepSeek V3.2',
-    provider: 'DeepSeek',
-    inputPerMillion: 0.28,
-    outputPerMillion: 0.42,
-    contextWindow: '128k',
-    profile: 'Very low-cost reasoning and coding at scale'
-  },
-  {
-    id: 'llama-4-maverick',
-    name: 'Llama 4 Maverick',
-    provider: 'Meta',
-    inputPerMillion: 0.2,
+    inputPerMillion: 0.15,
     outputPerMillion: 0.6,
+    contextWindow: '256k',
+    profile: 'Cost-sensitive hybrid instruct, reasoning and coding model'
+  },
+  {
+    id: 'deepseek-v4-1-flash',
+    name: 'DeepSeek V4.1 Flash',
+    provider: 'DeepSeek',
+    inputPerMillion: 0.3,
+    outputPerMillion: 1.2,
     contextWindow: '1M',
-    profile: 'Open-weight multimodal model for self-hosted deployments'
+    profile: 'Very low-cost model with vision (peak rate; off-peak is half)'
+  },
+  {
+    id: 'deepseek-v4-pro',
+    name: 'DeepSeek V4 Pro',
+    provider: 'DeepSeek',
+    inputPerMillion: 1.32,
+    outputPerMillion: 3.96,
+    contextWindow: '1M',
+    profile: 'Low-cost reasoning and coding at scale (peak rate; off-peak is half)'
   }
 ];
 
-export const PRICING_SNAPSHOT_DATE = 'August 2026';
+// Standard on-demand list prices (cache misses, no batch), verified against provider pages.
+export const PRICING_SNAPSHOT_DATE = 'October 2026';
