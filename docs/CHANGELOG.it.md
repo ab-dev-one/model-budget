@@ -26,6 +26,7 @@ Il formato segue Keep a Changelog.
 
 ### Corretto
 
+- Rimosse le dipendenze di sviluppo inutilizzate tailwindcss, postcss e autoprefixer, eliminando l'advisory transitivo `braces` GHSA-vfj7-8cjw-p6xm segnalato da Scorecard (alert code-scanning #21)
 - Errori di verifica Scorecard causati da reference/pin azioni non validi
 - Backlog di alert sicurezza gestito con remediation e pulizia stato alert
 

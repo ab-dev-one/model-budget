@@ -30,7 +30,7 @@ The current UI includes an interactive planning workspace:
 - React
 - TypeScript
 - Vite
-- Tailwind CSS
+- CSS
 - Vitest
 - GitHub Actions
 - GitHub Pages

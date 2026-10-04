@@ -4,7 +4,6 @@
 
 - Project setup
 - React, Vite and TypeScript
-- Tailwind CSS
 - Pricing data model
 - Cost engine
 - Scenario builder baseline

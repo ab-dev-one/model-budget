@@ -26,6 +26,7 @@ The format is based on Keep a Changelog.
 
 ### Fixed
 
+- Removed unused tailwindcss, postcss and autoprefixer dev dependencies, eliminating the transitive `braces` advisory GHSA-vfj7-8cjw-p6xm flagged by Scorecard (code-scanning alert #21)
 - Scorecard workflow verification failures caused by invalid action reference pins
 - Vulnerability and workflow policy backlog handled through remediation plus alert-state cleanup
 
